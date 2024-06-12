@@ -22,7 +22,7 @@ void adicionarContatos(FILE *arquivo) {
 }
 
 void consultarContatos(FILE *arquivo) {
-    
+
 }
 
 void excluirContatos(FILE *arquivo) {
@@ -66,8 +66,7 @@ int main(void){
             break;
         case 4:
             printf("Agenda fechada. Até breve!\n");
-            fclose(arquivo);
-            return 0;
+            break;
         default:
             printf("VALOR INVALIDO!\n\n");
             break;
