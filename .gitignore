@@ -54,3 +54,4 @@ dkms.conf
 # Aleatorios
 agenda
 *.bin
+.vscode
