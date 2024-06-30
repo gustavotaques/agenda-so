@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #define TAM_NOME 100
 #define TAM_TEL 20
@@ -101,5 +102,31 @@ int consultarContatos(FILE *arquivo) {
 }
 
 void excluirContatos(FILE *arquivo) {
+    Contato contatos_temp[100];
+    char nome[TAM_NOME];
+    int found = 0, cont = 0;
 
+    printf("Digite o nome do contato a ser excluido: ");
+    fgets(nome, TAM_NOME, stdin);
+    nome[strlen(nome)-1] = 0;
+
+    rewind(arquivo);
+    while(fread(&contatos_temp[cont], sizeof(Contato), 1, arquivo)) {
+        cont++;
+    }
+
+    rewind(arquivo);
+    for(int i=0; i<cont; i++) {
+        if(strcmp(contatos_temp[i].nome, nome) == 0) {
+            found = 1;
+        } else {
+            fwrite(&contatos_temp[i], sizeof(Contato), 1, arquivo);
+        }
+    }
+
+    if (!found) {
+        printf("\nNome nao encontrado! :(\n");
+    } else {
+        ftruncate(fileno(arquivo), sizeof(Contato) * (cont-1));
+    }
 }
